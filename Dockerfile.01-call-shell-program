@@ -1,0 +1,14 @@
+FROM python:3.8.2-slim-buster 
+
+ARG VERSION=0.0.1
+
+WORKDIR /workspace/picospace
+
+ENV VERSION=${VERSION}
+
+COPY projects/image projects/image
+
+RUN ls > test.log 
+
+#ENTRYPOINT ["python", "projects/image/main.py", "`${VERSION}`"]
+ENTRYPOINT ["projects/image/main.sh"]

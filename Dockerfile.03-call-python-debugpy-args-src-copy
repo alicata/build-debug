@@ -1,0 +1,12 @@
+FROM python:3.8.2-slim-buster 
+
+ARG VERSION=0.0.1
+WORKDIR /workspace/picospace
+ENV VERSION=${VERSION}
+
+COPY projects/image projects/image
+
+RUN pip install debugpy
+
+# works for debugging code but require editing the original dockerfile
+CMD ["python", "-m", "debugpy", "--listen", "0.0.0.0:5678", "--wait-for-client", "projects/image/main.py", "`${VERSION}`"]

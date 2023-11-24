@@ -1,0 +1,10 @@
+
+ARG VERSION=0.0.5
+ARG BASEIMAGE
+FROM $BASEIMAGE
+
+RUN pip install debugpy
+RUN echo -----------------------------------
+RUN echo DEBUG LAYER!
+
+CMD ["python", "-m", "debugpy", "--listen", "0.0.0.0:5678", "--wait-for-client", "projects/image/main.py", "debugging-layer"]
