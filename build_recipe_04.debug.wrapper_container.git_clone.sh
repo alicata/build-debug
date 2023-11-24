@@ -1,14 +1,16 @@
-BASEIMAGE_TO_DEBUG=testimage:v02
+#  docker build -f ./Dockerfile.04-call-python-main-src-git-clone -t testimage:v04 --build-arg VERSION=0.0.4 .
+
+BASEIMAGE_TO_DEBUG=testimage:v04
 WRAPPER_IMAGE=testimage:v05
 
 # Build parent image that needs to be debugged, without modifying it 
-docker build -f ./Dockerfile.02-call-python-main -t ${BASEIMAGE_TO_DEBUG} --build-arg VERSION=0.0.2 .
+docker build -f ./Dockerfile.04-call-python-main-src-git-clone -t ${BASEIMAGE_TO_DEBUG} --build-arg VERSION=0.0.4 .
 
 # Inject the parent docker image to debug into the derived debugging image
 docker build -t ${WRAPPER_IMAGE} --build-arg BASEIMAGE=${BASEIMAGE_TO_DEBUG} -f Dockerfile.05-debug-image-as-base-image .
 
 # Start debug server with main.app
-# Debug server waits for debug client (VSCode GUI) to start
+# Debug server waits for debug client (VSCode GUI) to startgit 
 # User selects Start-Debug with Remote-Attach config
 echo start debugging image that launches the debug server and waits for vscode debug client
 echo ${WRAPPER_IMAGE}: debug server starting ...
