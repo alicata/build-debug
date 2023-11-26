@@ -17,8 +17,12 @@ git clone https://github.com/alicata/build-debug.git debug
 # Debug server waits for debug client (VSCode GUI) to startgit 
 # User selects Start-Debug with Remote-Attach config
 echo start debugging image that launches the debug server and waits for vscode debug client
+
 echo ${WRAPPER_IMAGE}: debug server starting ...
 echo ${WRAPPER_IMAGE}: debug server waiting for VSCode client ...
 echo ${WRAPPER_IMAGE}: please start Debug in VSCode ...
+
+# Mount externally cloned repo to mirror internal one in base container
 docker run -it --rm -p 5678:5678 -v debug:/workspace/picospace/debug  ${WRAPPER_IMAGE}
+
 echo ${WRAPPER_IMAGE}: done.
